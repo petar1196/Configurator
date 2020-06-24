@@ -1,25 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
+import ThreeScene from './Components/ThreeScene';
 import './App.css';
+import UserInterface from './Components/UserInteface';
+import { Subscribe, Provider } from 'unstated';
+import ModifyContainer from './Components/State/ModifyContainer';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider>
+      <Subscribe to={[ModifyContainer]}>
+        {ModifyState => (
+          <div className="App">
+            <ThreeScene
+              skyboxMaterials1={ModifyState.state.skyboxMaterials1}
+              skyboxMaterials2={ModifyState.state.skyboxMaterials2}
+              currentSkybox={ModifyState.state.currentSkybox} />
+            <UserInterface />
+          </div>
+        )}
+      </Subscribe>
+    </Provider>
   );
 }
 

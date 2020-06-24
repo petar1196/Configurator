@@ -1,0 +1,117 @@
+button {
+    cursor          : pointer;
+    padding         : 0.2em 1.7em;
+    border          : 0.16em solid rgba(255, 255, 255, 0);
+    border-radius   : 2em;
+    text-decoration : none;
+    background-color: #E4ECF1;
+    font-weight     : 500;
+    outline         : none;
+
+}
+
+.modify {
+    position             : absolute;
+    font-family          : 'Roboto';
+    top                  : 0;
+    right                : 0;
+    margin               : 10px 4px;
+    padding              : 13px;
+    background-color     : rgba(36, 36, 35, 0.5);
+    display              : grid;
+    grid-template-columns: 8.6em 8.6em;
+    grid-template-rows   : repeat(6, 1.8em);
+
+    grid-gap           : 0.5em;
+    text-align         : center;
+    align-items        : center;
+    grid-template-areas: 'skybox1 skybox2'
+        'loadcone loadpot'
+        'cone pot'
+        'texture1cone texture1pot'
+        'texture2cone texture2pot'
+        'texture3cone texture3pot';
+
+}
+
+@media(max-width: 800px) {
+    .modify {
+        margin               : 10px 0;
+        grid-template-columns: 8.6em;
+        grid-template-rows   : repeat(12, 1.8em);
+        grid-template-areas  : "skybox1"
+            "skybox2"
+            "loadcone"
+            "loadpot"
+            "cone"
+            "texture1cone"
+            "texture2cone"
+            "texture3cone"
+            "pot"
+            "texture1pot"
+            "texture2pot"
+            "texture3pot";
+    }
+}
+
+
+.skybox1 {
+    grid-area: skybox1;
+}
+
+.skybox2 {
+    grid-area: skybox2;
+}
+
+.load-cone {
+    grid-area: loadcone;
+}
+
+.load-pot {
+    grid-area: loadpot;
+}
+
+.coneSpan {
+    grid-area: cone;
+}
+
+.potSpan {
+    grid-area: pot;
+}
+
+/* cone */
+.texture1Cone {
+    grid-area: texture1cone;
+}
+
+.texture2Cone {
+    grid-area: texture2cone;
+}
+
+.texture3Cone {
+    grid-area: texture3cone;
+}
+
+/* pot */
+.texture1Pot {
+    grid-area: texture1pot
+}
+
+.texture2Pot {
+    grid-area: texture2pot
+}
+
+.texture3Pot {
+    grid-area: texture3pot
+}
+
+
+
+
+.span {
+    font-size     : 1.1em;
+    margin-bottom : 0.2em;
+    font-weight   : 600;
+    color         : RGB(208, 212, 182);
+    text-transform: uppercase;
+}

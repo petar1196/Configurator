@@ -1,7 +1,5 @@
-import React from 'react';
-import * as THREE from 'three';
-import ThreeScene from '../ThreeScene';
 
+import * as THREE from 'three';
 import { Container } from 'unstated';
 
 

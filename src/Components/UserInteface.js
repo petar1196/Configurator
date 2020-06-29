@@ -21,20 +21,20 @@ class UserInterface extends Component {
     render() {
 
         return (
-                    <div className="modify">
-                    <Skybox1 />
-                    <Skybox2 />
-                    <LoadCone />
-                    <LoadPot />
-                    <span className="span coneSpan">Cone </span>
-                    <span className="span potSpan">Pot</span>
-                    <Texture1Cone />
-                    <Texture2Cone />
-                    <Texture3Cone />
-                    <Texture1Pot />
-                    <Texture2Pot />
-                    <Texture3Pot />
-                    </div >
+            <div className="modify">
+                <Skybox1 />
+                <Skybox2 />
+                <LoadCone />
+                <LoadPot />
+                <span className="span coneSpan">Cone </span>
+                <span className="span potSpan">Pot</span>
+                <Texture1Cone />
+                <Texture2Cone />
+                <Texture3Cone />
+                <Texture1Pot />
+                <Texture2Pot />
+                <Texture3Pot />
+            </div >
         )
     }
 }

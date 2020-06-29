@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Subscribe, Provider } from 'unstated'
 import '../Style/Style.css'
 import Skybox1 from './Buttons/Skybox1';
 import Skybox2 from './Buttons/Skybox2';
@@ -11,7 +10,7 @@ import Texture3Cone from './Buttons/Texture3Cone';
 import Texture1Pot from './Buttons/Texture1Pot';
 import Texture2Pot from './Buttons/Texture2Pot';
 import Texture3Pot from './Buttons/Texture3Pot';
-import ModifyContainer from './State/ModifyContainer';
+
 
 
 
@@ -19,13 +18,9 @@ import ModifyContainer from './State/ModifyContainer';
 
 class UserInterface extends Component {
 
-    
-
-
     render() {
 
         return (
-              
                     <div className="modify">
                     <Skybox1 />
                     <Skybox2 />
@@ -40,13 +35,7 @@ class UserInterface extends Component {
                     <Texture2Pot />
                     <Texture3Pot />
                     </div >
-              
-
         )
-
-
-
-
     }
 }
 

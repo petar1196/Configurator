@@ -2,71 +2,25 @@ import React, { Component } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import ModifyContainer from "./State/ModifyContainer";
+
 
 
 let scene, camera, renderer;
 let aspect = window.innerWidth / window.innerHeight;
 let spotLight, controls;
 let plane;
-let skyboxGeometry, skyboxMaterials1, skyboxMaterials2, skybox, skyboxGeo2, skybox2;
+let skyboxGeometry, skybox;
 const gltfLoader = new GLTFLoader();
-const textureLoader = new THREE.TextureLoader();
 
-let coneModel, coneTexture1, coneTexture2, coneTexture3;
-let clayModel, clayTexture1, clayTexture2, clayTexture3;
+
+let coneModel, coneTexture;
+let clayModel, clayTexture;
 
 
 
 class ThreeScene extends Component {
 
-    // Buttons functionality
-    changeSkybox1() {
-        this.skybox.material = this.skyboxMaterials1;
-    }
 
-    changeSkybox2() {
-        this.skybox.material = this.skyboxMaterials2;
-    }
-
-    loadCone() {
-        this.coneModel.visible = true;
-        this.clayModel.visible = false;
-    }
-
-
-    coneTexture1 = new THREE.TextureLoader().load('public/assets/models/Traffic Cone/ue4jfevga_2K_Albedo.jpg');
-    coneTexture2 = new THREE.TextureLoader().load('public/assets/models/Traffic Cone/albedo1.jpg');
-    coneTexture3 = new THREE.TextureLoader().load('public/assets/models/Traffic Cone/albedo2.jpg');
-
-    changeCone1() {
-        this.coneModel.material = coneTexture1;
-    }
-
-    changeCone2() {
-        this.coneModel.material = coneTexture2;
-    }
-
-    changeCone3() {
-        this.coneModel.material = coneTexture3;
-    }
-
-
-    clayTexture1 = new THREE.TextureLoader().load('public/assets/models/Clay Pot/uepibauva_2K_Albedo.jpg');
-    clayTexture2 = new THREE.TextureLoader().load('public/assets/models/Clay Pot/AlbedoCone2.jpg');
-    clayTexture3 = new THREE.TextureLoader().load('public/assets/models/Clay Pot/AlbedoCone3.jpg');
-
-    changeClay1() {
-        this.clayModel.material = clayTexture1;
-    }
-
-    changeClay2() {
-        this.clayModel.material = clayTexture2;
-    }
-
-    changeClay3() {
-        this.clayModel.material = clayTexture3;
-    }
 
     //End of buttons funcionality
 
@@ -102,33 +56,41 @@ class ThreeScene extends Component {
 
 
         const createCone = () => {
-            textureLoader.load('assets/models/Traffic Cone/ue4jfevga_2K_Albedo.jpg', coneTexture1 => {
-                gltfLoader.load('assets/models/Traffic Cone/ue4jfevga.glb', gltf => {
-                    coneModel = gltf.scene.children[0];
-                    coneModel.material = new THREE.MeshStandardMaterial({
-                        map: coneTexture1, roughness: .5,
-                        reflectivity: .5
-                    });
-                    coneModel.scale.setScalar(1);
-                    coneModel.castShadow = true;
-                    coneModel.receiveShadow = true;
-                    coneModel.position.y -= 9;
-                    coneModel.visible = true;
-                    scene.add(coneModel);
+            gltfLoader.load('assets/models/Traffic Cone/ue4jfevga.glb', gltf => {
+                coneModel = gltf.scene.children[0];
+                coneTexture = this.props.coneTexture;
+                coneModel.material = new THREE.MeshStandardMaterial({
+                    map: coneTexture, roughness: .5,
+                    reflectivity: .5
                 });
+                coneModel.scale.setScalar(1);
+                coneModel.castShadow = true;
+                coneModel.receiveShadow = true;
+                coneModel.position.y -= 9;
+                coneModel.visible = this.props.coneModelState;
+                scene.add(coneModel);
+                console.log(coneModel.visible);
+
+
             });
+
         }
 
-        const createClay = () => {
+        const createClay = (props) => {
             gltfLoader.load('assets/models/Clay Pot/uepibauva.glb', gltf => {
                 clayModel = gltf.scene.children[0];
-                clayTexture1 = new THREE.TextureLoader().load('assets/models/Clay Pot/uepibauva_2K_Albedo.jpg');
-                clayModel.material = new THREE.MeshStandardMaterial({ map: clayTexture1 });
+                clayTexture = this.props.clayLoader;
+                clayModel.material = new THREE.MeshStandardMaterial({
+                    map: clayTexture, roughness: .5,
+                    reflectivity: .5
+                });
+                // console.log(clayModel.material);
                 clayModel.scale.setScalar(3);
                 clayModel.castShadow = true;
                 clayModel.receiveShadow = true;
-                clayModel.visible = false;
+                clayModel.visible = this.props.clayModelState;
                 scene.add(clayModel);
+
 
                 clayModel.position.y -= 8;
 
@@ -173,11 +135,15 @@ class ThreeScene extends Component {
             // let lightHelper = new THREE.SpotLightHelper(spotLight);
             // scene.add(lightHelper); 
 
+
+
             createPlane();
             createSkyBox();
 
             createCone();
             createClay();
+
+
 
 
 
@@ -206,9 +172,41 @@ class ThreeScene extends Component {
         //Animation function
         const animate = () => {
             requestAnimationFrame(animate);
+
+
             skybox.material = this.props.currentSkybox;
 
+
+            if (coneModel) {
+                coneModel.visible = this.props.coneModelState;
+            }
+
+            if (clayModel) {
+                clayModel.visible = this.props.clayModelState;
+            }
+
+            if (coneModel) {
+                coneTexture = this.props.coneTexture;
+                coneModel.material = new THREE.MeshStandardMaterial({
+                    map: coneTexture, roughness: .5,
+                    reflectivity: .5
+                });
+            }
+
+            if (clayModel) {
+                clayTexture = this.props.clayLoader;
+                clayModel.material = new THREE.MeshStandardMaterial({
+                    map: clayTexture, roughness: .5,
+                    reflectivity: .5
+                });
+            }
+
+
+
+
+
             controls.update();
+
 
             renderer.render(scene, camera);
         }
@@ -225,6 +223,8 @@ class ThreeScene extends Component {
         }
 
         window.addEventListener('resize', onWindowResize, false);
+
+
 
 
 

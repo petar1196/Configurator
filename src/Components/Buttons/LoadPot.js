@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ModifyContainer from '../State/ModifyContainer';
 import { Subscribe } from 'unstated';
-import ThreeScene from '../ThreeScene';
+import ModifyContainer from '../State/ModifyContainer';
+
 
 
 class LoadPot extends Component {
@@ -9,8 +9,11 @@ class LoadPot extends Component {
         return (
             <Subscribe to={[ModifyContainer]}>
                 {modifyState => (
-                    <button onClick={modifyState.LoadPot} className="button load-pot">Load Pot</button>
+                    <button onClick={() => {
+                        modifyState.loadClay()
+                    }} className="button load-pot">Load Pot</button>
                 )}
+
             </Subscribe>
 
         )
